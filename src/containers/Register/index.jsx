@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,19 +15,24 @@ import {
   Title,
   RigthContainer,
   ImputContainer,
+  Link,
 } from "./styles";
 
 export function Register() {
+  const navigate = useNavigate();
+
   const schema = yup
     .object({
       name: yup.string().required("O nome é obrigatório"),
-      email: yup.string().email().required("O e-mail é válido"),
+      email: yup.string().email().required("O e-mail é obrigatório"),
       password: yup
         .string()
         .min(6, "A senha deve ter pelo menos 6 caracteres")
         .required("Digite uma senha"),
-      confirmPassword: yup.string().oneOf([yup.ref("password")], "A senhas devem ser iguais")
-        .required("Confirma sua senha"),
+      confirmPassword: yup
+        .string()
+        .oneOf([yup.ref("password")], "As senhas devem ser iguais")
+        .required("Confirme sua senha"),
     })
     .required();
 
@@ -39,21 +45,32 @@ export function Register() {
   });
 
   const onSubmit = async (data) => {
-    const response = await toast.promise(
-      api.post("/users", {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      }),
+    try {
+      const { status } = await api.post(
+        "/users",
+        {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        },
+        {
+          validateStatus: () => true,
+        },
+      );
 
-      {
-        pending: "Verificando seus dados",
-        success: "Cadastro efetuado com sucesso!",
-        error: "Ops, algo deu errado! Tente novamente",
-      },
-    );
-
-    console.log(response);
+      if (status === 200 || status === 201) {
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+        toast.success("Conta criada com sucesso!");
+      } else if (status === 409) {
+        toast.error("E-mail já cadastrado! Faça login para continuar.");
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      toast.error("Falha no sistema! Tente novamente.");
+    }
   };
 
   return (
@@ -94,7 +111,7 @@ export function Register() {
         </Form>
 
         <p>
-          Já possui conta? <a>Clique aqui.</a>
+          Já possui conta? <Link to="/login">Clique aqui.</Link>
         </p>
       </RigthContainer>
     </Container>
