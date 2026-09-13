@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { CardProduct } from "../../components/CardProduct";
 import { api } from "../../services/api";
 import { formatPrice } from "../../utils/formatPrice";
-
 import {
   Container,
   Banner,
@@ -20,15 +19,26 @@ export function Menu() {
   // Guarda todos os produtos recebidos da API.
   const [products, setProducts] = useState([]);
 
-  // Guarda a categoria que está atualmente selecionada.
-  // O valor 0 representa "Todas".
-  const [activeCategory, setActiveCategory] = useState(0);
-
   // Guarda somente os produtos que devem aparecer na tela.
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   // Hook do React Router usado para alterar a URL através do código.
   const navigate = useNavigate();
+
+  const { search } = useLocation();
+
+  const queryParams = new URLSearchParams(search);
+
+  // Guarda a categoria que está atualmente selecionada.
+  // O valor 0 representa "Todas".
+  const [activeCategory, setActiveCategory] = useState(() => {
+    const categoryId = +queryParams.get("categoria");
+
+    if (categoryId) {
+      return categoryId;
+    }
+    return 0;
+  });
 
   // Executa quando o componente é carregado.
   useEffect(() => {
@@ -69,7 +79,7 @@ export function Menu() {
       // Caso contrário, mostra somente os produtos
       // pertencentes à categoria selecionada.
       const newFilteredProducts = products.filter(
-        (product) => product.category_id === activeCategory
+        (product) => product.category_id === activeCategory,
       );
       console.log("Produtos filtrados:", newFilteredProducts);
       setFilteredProducts(newFilteredProducts);
@@ -93,6 +103,7 @@ export function Menu() {
         {categories.map((category) => (
           <CategoryButton
             key={category.id}
+            $isActiveCategory={category.id === activeCategory}
             onClick={() => {
               // Atualiza a categoria selecionada.
               setActiveCategory(category.id);
@@ -105,7 +116,7 @@ export function Menu() {
                 },
                 {
                   replace: true,
-                }
+                },
               );
             }}
           >

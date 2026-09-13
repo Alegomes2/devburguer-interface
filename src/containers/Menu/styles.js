@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 import Background from "../../assets/backgroundblack.svg";
 import BannerCardapio from "../../assets/bannerCardapio.svg";
 
@@ -45,11 +44,10 @@ export const Banner = styled.div`
 `;
 
 export const CategoryMenu = styled.div`
-        display: flex;
-        justify-content: center;
-        gap: 50px;
-        margin-top: 30px;
-
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 30px;
 `;
 
 export const CategoryButton = styled.button`
@@ -59,9 +57,11 @@ export const CategoryButton = styled.button`
   border: 1px solid rgba(151, 88, 166, 0.35);
   border-radius: 12px;
 
-  background-color: #ffffff;
+  background-color: ${({ $isActiveCategory }) =>
+    $isActiveCategory ? "#9758a6" : "#ffffff"};
 
-  color: #9758a6;
+  color: ${({ $isActiveCategory }) =>
+    $isActiveCategory ? "#ffffff" : "#9758a6"};
 
   font-size: 17px;
   font-weight: 700;
@@ -79,7 +79,9 @@ export const CategoryButton = styled.button`
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
-    border-color 0.2s ease;
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
 
   &:hover {
     transform: translateY(-3px);

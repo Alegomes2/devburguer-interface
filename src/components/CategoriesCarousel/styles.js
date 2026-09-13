@@ -43,19 +43,23 @@ export const ContainerItens = styled.div`
 
   width: 100%;
   height: 160px;
+`;
 
-  p {
-    color: #ffffff;
+export const CategoryButton = styled.button`
+  color: #ffffff;
 
-    background-color: rgba(0, 0, 0, 0.55);
+  background-color: rgba(0, 0, 0, 0.55);
 
-    padding: 7px 18px;
+  padding: 7px 18px;
 
-    border-radius: 25px;
+  border-radius: 25px;
 
-    font-size: 16px;
-    font-weight: bold;
+  font-size: 16px;
+  font-weight: 500;
 
-    margin: 0;
+  margin: 0;
+
+  &:hover {
+    background-color: #9758a6;
   }
 `;
