@@ -28,8 +28,8 @@ export function CategoriesCarousel() {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 3,
+      items: 4,
+      slidesToSlide: 4,
     },
 
     tablet: {
@@ -56,7 +56,7 @@ export function CategoriesCarousel() {
         itemClass="carousel-item"
       >
         {categories.map((category) => (
-          <ContainerItens key={category.id} imageUrl={category.url}>
+          <ContainerItens key={category.id} $imageUrl={category.url}>
             <p>{category.name}</p>
           </ContainerItens>
         ))}

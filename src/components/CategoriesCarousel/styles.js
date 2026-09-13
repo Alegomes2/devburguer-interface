@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   .carousel-item {
-    padding-right: 40px;
-    padding-left: 40px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 `;
 
 export const Title = styled.h2`
-  font-size: 32px;
+  font-size: 42px;
   font-weight: 800;
   color: #9758a6;
   padding-bottom: 12px;
@@ -29,23 +29,33 @@ export const Title = styled.h2`
 `;
 
 export const ContainerItens = styled.div`
-  background: url("${(props) => props.imageUrl}");
+  background: url("${(props) => props.$imageUrl}");
   background-position: center;
   background-size: cover;
-  border-radius: 20px;
+
+  border-radius: 16px;
+
   display: flex;
-  align-items: center;
-  padding: 20px 10px;
+  align-items: flex-end;
+  justify-content: center;
+
+  padding: 12px;
+
   width: 100%;
-  height: 300px;
+  height: 160px;
 
   p {
     color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px 30px;
-    border-radius: 30px;
-    font-size: 22.5px;
+
+    background-color: rgba(0, 0, 0, 0.55);
+
+    padding: 7px 18px;
+
+    border-radius: 25px;
+
+    font-size: 16px;
     font-weight: bold;
-    margin-top: 50px;
+
+    margin: 0;
   }
 `;
