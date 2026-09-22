@@ -5,9 +5,13 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const userData = localStorage.getItem("devburguer:userData");
 
-  config.headers.authorization = `Bearer ${token}`;
+  if (userData) {
+    const user = JSON.parse(userData);
+
+    config.headers.authorization = `Bearer ${user.token}`;
+  }
 
   return config;
 });
