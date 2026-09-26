@@ -1,23 +1,40 @@
+
 import PropTypes from "prop-types";
 
-import { CartButton } from "../CartButton";
-import { CardImage, Container } from "./styles";
-
 import { useCart } from "../../hooks/CartContext";
+import { CartButton } from "../CartButton";
+import { Rating } from "../Rating";
+
+import {
+  Container,
+  CardImage,
+  ProductInfo,
+  ProductName,
+  ProductPrice,
+  ImageContainer,
+  ButtonContainer,
+} from "./styles";
 
 export function CardProduct({ product }) {
   const { putProductInCart } = useCart();
 
   return (
     <Container>
-      <CardImage src={product.url} alt={product.name} />
+      <ImageContainer>
+        <CardImage src={product.url} alt={product.name} />
+      </ImageContainer>
 
-      <div>
-        <p>{product.name}</p>
-        <strong>{product.currencyValue}</strong>
-      </div>
+      <ProductInfo>
+        <ProductName>{product.name}</ProductName>
 
-      <CartButton onClick={() => putProductInCart(product)} />
+        <Rating />
+
+        <ProductPrice>{product.currencyValue}</ProductPrice>
+      </ProductInfo>
+
+      <ButtonContainer>
+        <CartButton onClick={() => putProductInCart(product)} />
+      </ButtonContainer>
     </Container>
   );
 }
@@ -25,3 +42,4 @@ export function CardProduct({ product }) {
 CardProduct.propTypes = {
   product: PropTypes.object,
 };
+

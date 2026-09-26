@@ -33,21 +33,11 @@ export const Title = styled.div`
   padding-bottom: 12px;
   color: #61a120;
   text-align: center;
-
-  &::after {
-    position: absolute;
-    left: calc(50% + -28px);
-    bottom: 0;
-    content: "";
-    width: 56px;
-    height: 4px;
-    background-color: #61a120;
-  }
 `;
 
 export const Content = styled.div`
   display: grid;
-  grid-template-columns: 1fr 20%;
+  grid-template-columns: 1fr 30%;
   gap: 40px;
   width: 100%;
   max-width: 1200px;

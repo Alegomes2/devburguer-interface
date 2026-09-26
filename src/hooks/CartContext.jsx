@@ -6,69 +6,76 @@ export const CartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]);
 
   const putProductInCart = (product) => {
-    const cartIndex = cartProducts.findIndex((prd) => prd.id === product.id)
+    const cartIndex = cartProducts.findIndex((prd) => prd.id === product.id);
 
-    let newProductInCart = []
+    let newProductInCart = [];
 
-    if(cartIndex >= 0) {
-        newProductInCart = cartProducts;
+    if (cartIndex >= 0) {
+      newProductInCart = cartProducts;
 
-        newProductInCart[cartIndex].quantity = newProductInCart[cartIndex].quantity + 1
+      newProductInCart[cartIndex].quantity =
+        newProductInCart[cartIndex].quantity + 1;
 
-        setCartProducts(newProductInCart)
+      setCartProducts(newProductInCart);
     } else {
-
-        product.quantity = 1
-        newProductInCart = [...cartProducts, product]
-        setCartProducts(newProductInCart);
+      product.quantity = 1;
+      newProductInCart = [...cartProducts, product];
+      setCartProducts(newProductInCart);
     }
 
     updateLocalStorage(newProductInCart);
   };
 
-  const clearCart = () => {};
+  const clearCart = () => {
+    setCartProducts([]);
+
+    updateLocalStorage([]);
+  };
 
   const deleteProduct = (productId) => {
-    const newCart = cartProducts.filter((prd) => prd.id !== productId)
+    const newCart = cartProducts.filter((prd) => prd.id !== productId);
 
     setCartProducts(newCart);
     updateLocalStorage(newCart);
   };
 
   const addProduct = (productId) => {
-    const newCart = cartProducts.map( prd => {
-        return prd.id === productId ? {...prd, quantity: prd.quantity + 1} : prd;
-    })
+    const newCart = cartProducts.map((prd) => {
+      return prd.id === productId
+        ? { ...prd, quantity: prd.quantity + 1 }
+        : prd;
+    });
 
     setCartProducts(newCart);
     updateLocalStorage(newCart);
   };
 
   const removeProduct = (productId) => {
-    const cartIndex = cartProducts.findIndex((prd) => prd.id === productId)
+    const cartIndex = cartProducts.findIndex((prd) => prd.id === productId);
 
-    if(cartProducts[cartIndex].quantity > 1) {
-        const newCart = cartProducts.map((prd) => {
-            return prd.id === productId ? {...prd, quantity: prd.quantity - 1} : prd;
-        })
+    if (cartProducts[cartIndex].quantity > 1) {
+      const newCart = cartProducts.map((prd) => {
+        return prd.id === productId
+          ? { ...prd, quantity: prd.quantity - 1 }
+          : prd;
+      });
 
-        setCartProducts(newCart);
-        updateLocalStorage(newCart);
+      setCartProducts(newCart);
+      updateLocalStorage(newCart);
     } else {
-        deleteProduct(productId)
+      deleteProduct(productId);
     }
-
   };
 
-    const updateLocalStorage = ( products ) => {
-    localStorage.setItem("devburguer:cartInfo", JSON.stringify(products))
-  }
+  const updateLocalStorage = (products) => {
+    localStorage.setItem("devburguer:cartInfo", JSON.stringify(products));
+  };
 
   useEffect(() => {
     const clientCartData = localStorage.getItem("devburguer:cartInfo");
 
-    if(clientCartData) {
-        setCartProducts(JSON.parse(clientCartData))
+    if (clientCartData) {
+      setCartProducts(JSON.parse(clientCartData));
     }
   }, []);
 
