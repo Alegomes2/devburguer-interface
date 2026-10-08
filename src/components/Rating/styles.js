@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -38,4 +37,3 @@ export const StarButton = styled.button`
     border-radius: 4px;
   }
 `;
-

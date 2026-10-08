@@ -1,5 +1,5 @@
-
 import { useState } from "react";
+
 import { Star } from "@phosphor-icons/react";
 
 import { Container, StarButton } from "./styles";
@@ -28,4 +28,3 @@ export function Rating() {
     </Container>
   );
 }
-

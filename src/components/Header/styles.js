@@ -1,5 +1,5 @@
-
 import { Link } from "react-router-dom";
+
 import styled from "styled-components";
 
 export const Container = styled.header`
@@ -199,4 +199,3 @@ export const CartLink = styled(Link)`
     transform: translateY(0);
   }
 `;
-

@@ -1,9 +1,8 @@
-
 import { useNavigate, useResolvedPath } from "react-router-dom";
+
 import { UserCircle, ShoppingCart } from "@phosphor-icons/react";
 
 import { useUser } from "../../hooks/UserContext";
-
 import {
   Container,
   Content,
@@ -37,10 +36,7 @@ export function Header() {
 
           <Divider />
 
-          <HeaderLink
-            to="/cardapio"
-            $isActive={pathname === "/cardapio"}
-          >
+          <HeaderLink to="/cardapio" $isActive={pathname === "/cardapio"}>
             Cardápio
           </HeaderLink>
         </Navigation>
@@ -68,4 +64,3 @@ export function Header() {
     </Container>
   );
 }
-

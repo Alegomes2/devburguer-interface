@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 
 export const Container = styled.footer`
@@ -98,5 +97,4 @@ export const SocialLink = styled.a`
     outline: 2px solid #b978c8;
     outline-offset: 3px;
   }
-
 `;

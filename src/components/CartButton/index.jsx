@@ -1,4 +1,3 @@
-
 import { ShoppingCart } from "@phosphor-icons/react";
 
 import { ContainerButton } from "./styles";
@@ -12,4 +11,3 @@ export function CartButton({ ...props }) {
     </ContainerButton>
   );
 }
-

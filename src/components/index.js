@@ -9,4 +9,4 @@ export * from "./OfferCarousel";
 export * from "./Table";
 export * from "./CartResume";
 export * from "./CartItens";
-
+export * from "./SideNavAdmin";

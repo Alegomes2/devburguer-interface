@@ -1,9 +1,4 @@
-
-import {
-  InstagramLogo,
-  WhatsappLogo,
-  Envelope,
-} from "@phosphor-icons/react";
+import { InstagramLogo, WhatsappLogo, Envelope } from "@phosphor-icons/react";
 
 import { Container, Content, SocialLinks, SocialLink } from "./styles";
 
@@ -12,8 +7,8 @@ export function Footer() {
     <Container>
       <Content>
         <p>
-          Desenvolvido por Alexandre Gomes · DevClub · 2026 · Todos os
-          direitos reservados
+          Desenvolvido por Alexandre Gomes · DevClub · 2026 · Todos os direitos
+          reservados
         </p>
 
         <SocialLinks>
@@ -46,4 +41,3 @@ export function Footer() {
     </Container>
   );
 }
-

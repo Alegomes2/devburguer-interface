@@ -1,10 +1,8 @@
-
 import PropTypes from "prop-types";
 
 import { useCart } from "../../hooks/CartContext";
 import { CartButton } from "../CartButton";
 import { Rating } from "../Rating";
-
 import {
   Container,
   CardImage,
@@ -42,4 +40,3 @@ export function CardProduct({ product }) {
 CardProduct.propTypes = {
   product: PropTypes.object,
 };
-
