@@ -13,11 +13,42 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useState } from "react";
 import { formatPrice } from "../../../utils/formatPrice";
 import { formatDate} from "../../../utils/formatDate";
+import { SelectStatus } from "./styles";
+import { orderStatusOptions } from "./orderStatus";
 
-export function Row({ row }) {
+import { api } from "../../../services/api";
+
+
+export function Row({ row, setOrders, orders }) {
   const [open, setOpen] = useState(false);
 
+  const [loading, setLoading] = useState(false)
+
   const detailsId = `details-${row.orderId}`;
+
+  
+async function newStatusOrder(id, status) {
+  try {
+
+    setLoading(true)
+    await api.put(`/orders/${id}`, { status });
+
+    const updatedOrders = orders.map((order) => {
+      if (order.id === id) {
+        return { ...order, status };
+      }
+
+      return order;
+    });
+
+    setOrders(updatedOrders);
+  } catch (error) {
+    console.error("Erro ao atualizar status:", error);
+  } finally {
+    setLoading(false);
+  }
+}
+
 
   return (
     <>
@@ -44,7 +75,17 @@ export function Row({ row }) {
           {formatDate(row.date)}
         </TableCell>
 
-        <TableCell>{row.status}</TableCell>
+        <TableCell>
+          
+          <SelectStatus
+           options={orderStatusOptions.filter((status) => status.id !==0 )} 
+           placeholder="Status"
+           defaultValue={ orderStatusOptions.find( status => status.value === row.status || null)} 
+           onChange={ status => newStatusOrder (row.orderId, status.value)}
+           isLoading={loading}
+           menuPortalTarget={document.body}
+           />
+        </TableCell>
       </TableRow>
 
       <TableRow id={detailsId}>
@@ -70,6 +111,7 @@ export function Row({ row }) {
 
                 <TableBody>
                   {row.items.map((item) => (
+
                     <TableRow key={item.id}>
                       <TableCell>{item.quantity}</TableCell>
 
@@ -101,6 +143,8 @@ export function Row({ row }) {
 }
 
 Row.propTypes = {
+  orders: PropTypes.array.isRequired,
+  setOrders: PropTypes.func.isRequired,
   row: PropTypes.shape({
     orderId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
