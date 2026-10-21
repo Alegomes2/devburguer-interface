@@ -1,20 +1,17 @@
+import { useEffect, useState } from "react";
 
-
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-
-import { useEffect, useState } from "react";
-
-import { Row } from "./row";
 
 import { api } from "../../../services/api";
 import { orderStatusOptions } from "./orderStatus";
-import { Filter, FilterOptions, SelectStatus } from "./styles"
+import { Row } from "./row";
+import { Filter, FilterOptions, SelectStatus } from "./styles";
 
 export function Orders() {
   const [orders, setOrders] = useState([]);
@@ -61,59 +58,66 @@ export function Orders() {
       setFilteredOrders(newOrders);
     }
 
-    setActiveStatus(status.id)
+    setActiveStatus(status.id);
   }
 
   useEffect(() => {
-      if (activeStatus === 0) {
-        setFilteredOrders(orders)
-      } else {
-        const statusIndex = orderStatusOptions.findIndex(
-          (item) => item.id === activeStatus
-        )
+    if (activeStatus === 0) {
+      setFilteredOrders(orders);
+    } else {
+      const statusIndex = orderStatusOptions.findIndex(
+        (item) => item.id === activeStatus,
+      );
 
-        const newFilterOrders = orders.filter(
-          (order) => order.status === orderStatusOptions[statusIndex].value);
+      const newFilterOrders = orders.filter(
+        (order) => order.status === orderStatusOptions[statusIndex].value,
+      );
 
-        setFilteredOrders(newFilterOrders);
-      }
-  }, [orders])
+      setFilteredOrders(newFilterOrders);
+    }
+  }, [orders]);
 
   return (
-
     <>
-
       <Filter>
-        {orderStatusOptions.map((status) =>(
-          <FilterOptions key={status.id} onClick={() => handleStatus(status)} $isActiveStatus={activeStatus === status.id} >
+        {orderStatusOptions.map((status) => (
+          <FilterOptions
+            key={status.id}
+            onClick={() => handleStatus(status)}
+            $isActiveStatus={activeStatus === status.id}
+          >
             {status.label}
           </FilterOptions>
         ))}
       </Filter>
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
+      <TableContainer component={Paper}>
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              <TableCell />
 
-            <TableCell>Pedido</TableCell>
+              <TableCell>Pedido</TableCell>
 
-            <TableCell>Cliente</TableCell>
+              <TableCell>Cliente</TableCell>
 
-            <TableCell>Data do Pedido</TableCell>
+              <TableCell>Data do Pedido</TableCell>
 
-            <TableCell>Status</TableCell>
-          </TableRow>
-        </TableHead>
+              <TableCell>Status</TableCell>
+            </TableRow>
+          </TableHead>
 
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.orderId} row={row} orders={orders} setOrders={setOrders} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          <TableBody>
+            {rows.map((row) => (
+              <Row
+                key={row.orderId}
+                row={row}
+                orders={orders}
+                setOrders={setOrders}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 }
-
