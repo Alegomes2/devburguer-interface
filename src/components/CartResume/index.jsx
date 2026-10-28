@@ -22,6 +22,10 @@ export function CartResume() {
       return current.price * current.quantity + acc;
     }, 0);
 
+    console.log("Produtos do carrinho:", cartProducts);
+    console.log("Soma dos produtos:", sumAllItens);
+    console.log("Soma formatada:", formatPrice(sumAllItens));
+
     setFinalPrice(sumAllItens);
   }, [cartProducts]);
 

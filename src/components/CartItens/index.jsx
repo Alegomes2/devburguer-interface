@@ -60,7 +60,7 @@ export function CartItens() {
                 <TrashImage
                   src={TrashIcon}
                   alt="Lixeira"
-                  onClick={() => removeProduct(product.id)}
+                  onClick={() => deleteProduct(product.id)}
                 />
               </Table.Td>
             </Table.Tr>

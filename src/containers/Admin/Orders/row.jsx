@@ -112,12 +112,12 @@ export function Row({ row, setOrders, orders }) {
                       <TableCell>{formatPrice(item.product.price)}</TableCell>
 
                       <TableCell>
-                        <img
-                          src={`http://localhost:3001/product-file/${item.product.path}`}
-                          alt={item.product.name}
-                          width="60"
-                        />
-                      </TableCell>
+  <img
+    src={`${import.meta.env.VITE_API_URL || "http://localhost:3001"}/product-file/${item.product.path}`}
+    alt={item.product.name}
+    width="60"
+  />
+</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
